@@ -50,4 +50,12 @@ public class Contrainte {
 	public String toString() {
 		return "\n" + "Contrainte [" + variable1 + ", " + variable2 + " : " + lstCouple + "]";
 	}
+
+	public Variable getVariable1() {
+		return variable1;
+	}
+
+	public Variable getVariable2() {
+		return variable2;
+	}
 }

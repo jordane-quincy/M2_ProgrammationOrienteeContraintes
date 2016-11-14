@@ -8,6 +8,7 @@ public class Variable {
 
 	String id = null;
 	List<Integer> domaine = new ArrayList<Integer>();
+	int connectivite = 0;
 
 	public Variable(int numero, int tailleMaxDomaine) {
 		this.id = "X" + numero;
@@ -40,6 +41,14 @@ public class Variable {
 
 	public List<Integer> getDomaine() {
 		return domaine;
+	}
+
+	public void updateConnectivite(int diff) {
+		this.connectivite += diff;
+	}
+
+	public int getConnectivite() {
+		return connectivite;
 	}
 
 }

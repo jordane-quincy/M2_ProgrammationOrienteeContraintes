@@ -20,14 +20,16 @@ public class CSP {
 
 		int nbMaxContraintes = nbVariables * (nbVariables - 1) / 2;
 		int nbContraintes = densite * nbMaxContraintes / 100;
-		
-		int nbContraintesMaxViaConnectivite = (int) Math.floor(nbVariables * (connectivite / 2));
+
+		int nbContraintesMaxViaConnectivite = (int) Math.floor(nbVariables * ((double) connectivite / 2));
 		if (nbContraintesMaxViaConnectivite < nbContraintes) {
-			throw new UnsupportedOperationException("La connectivité n'est pas assez grande par rapport au nbr de contraintes voulu (densité)\n"
-					+ "nbContraintes avec densité : " + nbContraintes + ", nbrContraintes avec connectivité : " + nbContraintesMaxViaConnectivite + "\n"
-							+ "Vous devez augmenté la connectivité ou diminuer la densité");
+			throw new UnsupportedOperationException(
+					"La connectivitï¿½ n'est pas assez grande par rapport au nbr de contraintes voulu (densitï¿½)\n"
+							+ "nbContraintes avec densitï¿½ : " + nbContraintes + ", nbrContraintes avec connectivitï¿½ : "
+							+ nbContraintesMaxViaConnectivite + "\n"
+							+ "Vous devez augmentï¿½ la connectivitï¿½ ou diminuer la densitï¿½");
 		}
-		
+
 		this.lstContrainte = new ArrayList<Contrainte>();
 		for (int i = 1; i <= nbVariables; i++) {
 			for (int j = i + 1; j <= nbVariables; j++) {
@@ -37,9 +39,42 @@ public class CSP {
 			}
 		}
 
+		List<Contrainte> lstContrainteOk = new ArrayList<Contrainte>();
+		while (!lstContrainte.isEmpty()) {
+			int indexContrainte = generateRandomFrom0ToMax(lstContrainte.size());
+			Contrainte contrainte = lstContrainte.get(indexContrainte);
+
+			Variable var1 = contrainte.getVariable1();
+			Variable var2 = contrainte.getVariable2();
+
+			if (var1.getConnectivite() < connectivite && var2.getConnectivite() < connectivite) {
+				lstContrainteOk.add(contrainte);
+
+				// incrementation de la connectivite
+				var1.updateConnectivite(1);
+				var2.updateConnectivite(1);
+			}
+
+			// on la vire
+			lstContrainte.remove(indexContrainte);
+
+		}
+
+		// on remplace
+		lstContrainte = lstContrainteOk;
+
+		// si jamais on n'en a toujours trop, on en retire au hasard quelque
+		// soit la connectivite
 		while (lstContrainte.size() > nbContraintes) {
 			int indexToRemove = generateRandomFrom0ToMax(lstContrainte.size());
-			lstContrainte.remove(indexToRemove);
+			Contrainte contrainte = lstContrainte.get(indexToRemove);
+			Variable variable1 = contrainte.getVariable1();
+			Variable variable2 = contrainte.getVariable2();
+
+			variable1.updateConnectivite(-1);
+			variable2.updateConnectivite(-1);
+
+			lstContrainte.remove(contrainte);
 		}
 
 		for (int i = 0; i < lstContrainte.size(); i++) {
@@ -59,6 +94,15 @@ public class CSP {
 		int min = 0;
 		int result = r.nextInt(max - min) + min;
 		return result;
+	}
+
+	private boolean isAllConnectiviteOk(int connectivite) {
+		for (Variable var : lstVariable) {
+			if (var.getConnectivite() > connectivite) {
+				return false;
+			}
+		}
+		return true;
 	}
 
 }
