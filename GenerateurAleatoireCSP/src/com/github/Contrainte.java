@@ -27,7 +27,7 @@ public class Contrainte {
 
 		// on retire pour obtenir le nombre de couple souhaite
 		int nbCoupleMax = variable1.getDomaine().size() * variable2.getDomaine().size();
-		int nbCouple = generateRandom(dureteMax, 100) * nbCoupleMax / 100;
+		int nbCouple = (int) Math.ceil((double) generateRandom(dureteMax, 100) * nbCoupleMax / 100);
 
 		// System.err.println("nbCoupleMax :" + nbCoupleMax + ", dureteMax : " +
 		// dureteMax + ", nbCouple : " + nbCouple
