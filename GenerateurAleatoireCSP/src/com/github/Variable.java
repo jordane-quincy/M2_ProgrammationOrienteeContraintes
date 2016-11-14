@@ -29,13 +29,17 @@ public class Variable {
 	private int generateRandomFrom1ToMax(int max) {
 		Random r = new Random();
 		int min = 1;
-		int result = r.nextInt(max - min) + min;
+		int result = r.nextInt(max - min + 1) + min;
 		return result;
 	}
 
 	@Override
 	public String toString() {
 		return "Variable [id=" + id + ", domaine=" + domaine + "]";
+	}
+
+	public List<Integer> getDomaine() {
+		return domaine;
 	}
 
 }
