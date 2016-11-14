@@ -42,8 +42,8 @@ public class CSP {
 
 	@Override
 	public String toString() {
-		return "CSP [lstVariable (" + lstVariable.size() + ") =" + lstVariable + ", " + "\n" + " lstContrainte ("
-				+ lstContrainte.size() + ") =" + lstContrainte + ", " + "\n" + "nbVariables=" + nbVariables + "]";
+		return "CSP : \n" + "lstVariable (" + lstVariable.size() + ") =" + lstVariable + "\n" + "lstContrainte ("
+				+ lstContrainte.size() + ") =" + "\n" + lstContrainte;
 	}
 
 	private int generateRandomFrom0ToMax(int max) {

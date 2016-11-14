@@ -29,8 +29,9 @@ public class Contrainte {
 		int nbCoupleMax = variable1.getDomaine().size() * variable2.getDomaine().size();
 		int nbCouple = generateRandom(dureteMax, 100) * nbCoupleMax / 100;
 
-		System.err.println("nbCoupleMax :" + nbCoupleMax + ", dureteMax : " + dureteMax + ", nbCouple : " + nbCouple
-				+ ", lstCouple.size() :" + lstCouple.size());
+		// System.err.println("nbCoupleMax :" + nbCoupleMax + ", dureteMax : " +
+		// dureteMax + ", nbCouple : " + nbCouple
+		// + ", lstCouple.size() :" + lstCouple.size());
 
 		while (lstCouple.size() > nbCouple) {
 			int indexToRemove = generateRandom(0, lstCouple.size() - 1);
@@ -47,6 +48,6 @@ public class Contrainte {
 
 	@Override
 	public String toString() {
-		return "Contrainte [variable1=" + variable1 + ", variable2=" + variable2 + ", lstCouple=" + lstCouple + "]";
+		return "\n" + "Contrainte [" + variable1 + ", " + variable2 + " : " + lstCouple + "]";
 	}
 }

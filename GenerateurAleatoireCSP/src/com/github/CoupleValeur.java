@@ -28,6 +28,6 @@ public class CoupleValeur {
 
 	@Override
 	public String toString() {
-		return "CoupleValeur [valeur1=" + valeur1 + ", valeur2=" + valeur2 + "]";
+		return "(" + valeur1 + "," + valeur2 + ")";
 	}
 }

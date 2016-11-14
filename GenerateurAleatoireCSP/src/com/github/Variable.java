@@ -35,7 +35,7 @@ public class Variable {
 
 	@Override
 	public String toString() {
-		return "Variable [id=" + id + ", domaine=" + domaine + "]";
+		return "\n" + id + " {" + domaine + "}";
 	}
 
 	public List<Integer> getDomaine() {
