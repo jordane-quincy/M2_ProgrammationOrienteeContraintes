@@ -10,7 +10,7 @@ public class CSP {
 	List<Contrainte> lstContrainte = null;
 	int nbVariables;
 
-	public CSP(int nbVariables, int tailleMaxDomaine, int densite, int durete) {
+	public CSP(int nbVariables, int tailleMaxDomaine, int densite, int durete, int connectivite) {
 		this.nbVariables = nbVariables;
 
 		this.lstVariable = new ArrayList<Variable>();
@@ -20,6 +20,14 @@ public class CSP {
 
 		int nbMaxContraintes = nbVariables * (nbVariables - 1) / 2;
 		int nbContraintes = densite * nbMaxContraintes / 100;
+		
+		int nbContraintesMaxViaConnectivite = (int) Math.floor(nbVariables * (connectivite / 2));
+		if (nbContraintesMaxViaConnectivite < nbContraintes) {
+			throw new UnsupportedOperationException("La connectivité n'est pas assez grande par rapport au nbr de contraintes voulu (densité)\n"
+					+ "nbContraintes avec densité : " + nbContraintes + ", nbrContraintes avec connectivité : " + nbContraintesMaxViaConnectivite + "\n"
+							+ "Vous devez augmenté la connectivité ou diminuer la densité");
+		}
+		
 		this.lstContrainte = new ArrayList<Contrainte>();
 		for (int i = 1; i <= nbVariables; i++) {
 			for (int j = i + 1; j <= nbVariables; j++) {
