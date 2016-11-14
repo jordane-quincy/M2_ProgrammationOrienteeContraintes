@@ -1,7 +1,7 @@
 package com.github;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class Contrainte {
@@ -9,31 +9,32 @@ public class Contrainte {
 	Variable variable1;
 	Variable variable2;
 
-	Map<Integer, Integer> map;
+	List<CoupleValeur> lstCouple;
 
 	public Contrainte(Variable variable1, Variable variable2, int connectivite) {
 		this.variable1 = variable1;
 		this.variable2 = variable2;
-		this.map = new HashMap<Integer, Integer>();
-	}
-
-	public Map<Integer, Integer> getMap() {
-		return map;
+		this.lstCouple = new ArrayList<CoupleValeur>();
 	}
 
 	public void initMap(int dureteMax) {
 		// produit cartesien
 		for (Integer var1 : variable1.getDomaine()) {
 			for (Integer var2 : variable2.getDomaine()) {
-				map.put(var1, var2);
+				lstCouple.add(new CoupleValeur(var1, var2));
 			}
 		}
 
+		// on retire pour obtenir le nombre de couple souhaite
 		int nbCoupleMax = variable1.getDomaine().size() * variable2.getDomaine().size();
 		int nbCouple = generateRandom(dureteMax, 100) * nbCoupleMax / 100;
-		while (map.size() > nbCouple) {
-			int indexToRemove = generateRandom(0, map.size() - 1);
-			map.remove(indexToRemove);
+
+		System.err.println("nbCoupleMax :" + nbCoupleMax + ", dureteMax : " + dureteMax + ", nbCouple : " + nbCouple
+				+ ", lstCouple.size() :" + lstCouple.size());
+
+		while (lstCouple.size() > nbCouple) {
+			int indexToRemove = generateRandom(0, lstCouple.size() - 1);
+			lstCouple.remove(indexToRemove);
 		}
 
 	}
@@ -46,6 +47,6 @@ public class Contrainte {
 
 	@Override
 	public String toString() {
-		return "Contrainte [variable1=" + variable1 + ", variable2=" + variable2 + ", map=" + map + "]";
+		return "Contrainte [variable1=" + variable1 + ", variable2=" + variable2 + ", lstCouple=" + lstCouple + "]";
 	}
 }

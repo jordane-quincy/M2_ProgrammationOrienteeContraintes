@@ -13,12 +13,12 @@ public class Variable {
 		this.id = "X" + numero;
 
 		int tailleDomaine = generateRandomFrom1ToMax(tailleMaxDomaine);
-
 		this.domaine = new ArrayList<Integer>();
 		for (int i = 1; i <= tailleMaxDomaine; i++) {
 			domaine.add(i);
 		}
 
+		// on retire pour obtenir le nombre de couple souhaite
 		while (domaine.size() > tailleDomaine) {
 			int indexToRemove = generateRandomFrom1ToMax(domaine.size()) - 1;
 			domaine.remove(indexToRemove);
