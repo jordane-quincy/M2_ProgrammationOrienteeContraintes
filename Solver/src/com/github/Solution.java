@@ -31,7 +31,7 @@ public class Solution {
 				//On parcours la liste des couples de la contraintes
 				for (CoupleValeur couple : c.getLstCouple()) {
 					//Si au moins un couple autorise cette valeur pour cette variable en fonction de ce qu'on a déjà dans la solution alors on continue, sinon on retourne faux
-					if ((couple.getValeur2() == -1 || couple.getValeur2() == getValueOfVariable(c.getVariable2())) && couple.getValeur1() == v) {
+					if ((getValueOfVariable(c.getVariable2()) == -1 || couple.getValeur2() == getValueOfVariable(c.getVariable2())) && couple.getValeur1() == v) {
 						oneCoupleMatch = true;
 					}
 				}
@@ -44,7 +44,7 @@ public class Solution {
 				//On parcours la liste des couples de la contraintes
 				for (CoupleValeur couple : c.getLstCouple()) {
 					//Si au moins un couple autorise cette valeur pour cette variable en fonction de ce qu'on a déjà dans la solution alors on continue, sinon on retourne faux
-					if ((couple.getValeur1() == -1 || couple.getValeur1() == getValueOfVariable(c.getVariable1())) && couple.getValeur2() == v) {
+					if ((getValueOfVariable(c.getVariable1()) == -1 || couple.getValeur1() == getValueOfVariable(c.getVariable1())) && couple.getValeur2() == v) {
 						oneCoupleMatch = true;
 					}
 				}

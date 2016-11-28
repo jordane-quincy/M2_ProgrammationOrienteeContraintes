@@ -10,6 +10,9 @@ public class Backtracking {
 		int durete = 50;
 		int connectivite = 2;
 		CSP csp = new CSP(nbVariables, tailleMaxDomaine, densite, durete, connectivite);
+		Solution s = new Solution(csp);
+		System.out.println(csp);
+		System.out.println(s.authorizedValueForVariable(csp.lstVariable.get(0), 1));
 		
 	}
 
