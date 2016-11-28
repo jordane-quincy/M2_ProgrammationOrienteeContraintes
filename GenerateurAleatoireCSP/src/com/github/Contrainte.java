@@ -58,4 +58,9 @@ public class Contrainte {
 	public Variable getVariable2() {
 		return variable2;
 	}
+
+	public List<CoupleValeur> getLstCouple() {
+		return lstCouple;
+	}
+	
 }

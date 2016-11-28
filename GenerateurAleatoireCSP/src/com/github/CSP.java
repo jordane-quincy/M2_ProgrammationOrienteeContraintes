@@ -105,4 +105,13 @@ public class CSP {
 		return true;
 	}
 
+	public List<Variable> getLstVariable() {
+		return lstVariable;
+	}
+
+	public List<Contrainte> getLstContrainte() {
+		return lstContrainte;
+	}
+	
+
 }

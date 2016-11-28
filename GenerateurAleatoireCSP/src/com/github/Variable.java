@@ -50,5 +50,18 @@ public class Variable {
 	public int getConnectivite() {
 		return connectivite;
 	}
+	
+	public String getId() {
+		return id;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		Variable v = (Variable)obj;
+		if (v == null) {
+			return false;
+		}
+		return v.getId().equals(id);
+	}
 
 }
