@@ -4,29 +4,29 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Solution {
-	Map<Variable, Integer> solution = new HashMap<Variable, Integer>();
+	Map<Integer, CoupleValueDomain> solution = new HashMap<Integer, CoupleValueDomain>();
 	CSP csp;
 	public Solution(CSP csp) {
 		this.csp = csp;
 		//Initialisation solution to null for each variable
 		for (Variable i : csp.getLstVariable()) {
-			solution.put(i, -1);
+			solution.put(i.getIdInt(), new CoupleValueDomain(-1, i.getDomaine()));
 		}
 	}
 	
-	public void setValueToVariable (Variable variable, int v) {
-		solution.replace(variable, v);
+	public void setValueToVariable (int idVariable, int v) {
+		solution.get(idVariable).setValue(v);
 	}
 	
 	public int getValueOfVariable (Variable v) {
-		return solution.get(v);
+		return solution.get(v.getIdInt()).getValue();
 	}
 	
-	public boolean authorizedValueForVariable (Variable variable, int v) {
+	public boolean authorizedValueForVariable (int idVariable, int v) {
 		//On parcours la liste des contraintes
 		for (Contrainte c : csp.getLstContrainte()) {
 			//Si la variable qu'on veut tester appartient à une contrainte (variable1 ou variable2 de la contrainte)
-			if (c.getVariable1().equals(variable)) {
+			if (c.getVariable1().getIdInt() == idVariable) {
 				boolean oneCoupleMatch = false;
 				//On parcours la liste des couples de la contraintes
 				for (CoupleValeur couple : c.getLstCouple()) {
@@ -39,7 +39,7 @@ public class Solution {
 					return false;
 				}				
 			}
-			if (c.getVariable2().equals(variable)) {
+			if (c.getVariable2().getIdInt() == idVariable) {
 				boolean oneCoupleMatch = false;
 				//On parcours la liste des couples de la contraintes
 				for (CoupleValeur couple : c.getLstCouple()) {
@@ -55,4 +55,19 @@ public class Solution {
 		}
 		return true;
 	}
+
+	public Map<Integer, CoupleValueDomain> getSolution() {
+		return solution;
+	}
+
+	public void setSolution(Map<Integer, CoupleValueDomain> solution) {
+		this.solution = solution;
+	}
+
+	@Override
+	public String toString() {
+		return "Solution [" + solution + "]";
+	}
+	
+	
 }

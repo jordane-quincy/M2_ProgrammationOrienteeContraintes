@@ -112,6 +112,9 @@ public class CSP {
 	public List<Contrainte> getLstContrainte() {
 		return lstContrainte;
 	}
-	
+
+	public int getNbVariables() {
+		return nbVariables;
+	}
 
 }

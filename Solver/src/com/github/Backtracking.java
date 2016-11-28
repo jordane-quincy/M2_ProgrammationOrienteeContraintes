@@ -5,14 +5,14 @@ public class Backtracking {
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		int nbVariables = 6;
-		int tailleMaxDomaine = 6;
+		int tailleMaxDomaine = 5;
 		int densite = 40;
-		int durete = 50;
+		int durete = 10;
 		int connectivite = 2;
 		CSP csp = new CSP(nbVariables, tailleMaxDomaine, densite, durete, connectivite);
-		Solution s = new Solution(csp);
+		System.out.println("On essaye de résoudre le csp suivant :");
 		System.out.println(csp);
-		System.out.println(s.authorizedValueForVariable(csp.lstVariable.get(0), 1));
+		System.out.println(Solver.resolveByBacktracking(csp));
 		
 	}
 

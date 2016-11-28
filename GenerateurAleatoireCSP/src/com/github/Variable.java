@@ -63,5 +63,9 @@ public class Variable {
 		}
 		return v.getId().equals(id);
 	}
+	
+	public int getIdInt(){
+		return Integer.valueOf(id.substring(1));
+	}
 
 }
