@@ -2,6 +2,12 @@
 
 Générateur aléatoire de CSP
 
+
+#A implémenter :
+Backtracking
+Backjumping
+Forward checking
+
 nbVar
 tailleMaxDomain     {1,……….,n} (tout prendre puis supprimer)
 Contraintes : produit cartésien des domaines
