@@ -5,7 +5,7 @@ Générateur aléatoire de CSP
 
 #A implémenter :
 Backtracking
-Backjumping
+Backjumping (basé sur graphe)
 Forward checking
 
 nbVar
