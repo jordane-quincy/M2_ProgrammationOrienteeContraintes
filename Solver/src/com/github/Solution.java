@@ -1,19 +1,34 @@
 package com.github;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Solution {
+public class Solution implements Cloneable{
 	Map<Integer, CoupleValueDomain> solution = new HashMap<Integer, CoupleValueDomain>();
 	CSP csp;
+	
 	public Solution(CSP csp) {
 		this.csp = csp;
 		//Initialisation solution to null for each variable
 		for (Variable i : csp.getLstVariable()) {
-			solution.put(i.getIdInt(), new CoupleValueDomain(-1, i.getDomaine()));
+			solution.put(i.getIdInt(), new CoupleValueDomain(-1, new ArrayList<Integer>(i.getDomaine())));
 		}
 	}
 	
+	public Solution(Solution s) {
+		this.csp = s.getCsp();
+		this.solution = new HashMap<Integer, CoupleValueDomain>(s.getSolution());
+	}
+	
+	public CSP getCsp() {
+		return csp;
+	}
+
+	public void setCsp(CSP csp) {
+		this.csp = csp;
+	}
+
 	public void setValueToVariable (int idVariable, int v) {
 		solution.get(idVariable).setValue(v);
 	}
@@ -58,6 +73,17 @@ public class Solution {
 
 	public Map<Integer, CoupleValueDomain> getSolution() {
 		return solution;
+	}
+	
+	public Object clone() {
+		Object o = null;
+		try {
+			o = super.clone();
+		} catch (CloneNotSupportedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return o;
 	}
 
 	public void setSolution(Map<Integer, CoupleValueDomain> solution) {

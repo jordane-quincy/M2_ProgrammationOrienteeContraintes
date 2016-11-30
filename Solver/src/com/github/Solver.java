@@ -28,7 +28,7 @@ public class Solver {
 			if (!ok) {
 				//Si on n'a pas trouvé de valeur compatible avec la solution courante
 				//On reset le Domaine de la variable et on repasse à la variable précédente
-				solForVarI.setDomaine(csp.getLstVariable().get(i - 1).getDomaine());
+				solForVarI.setDomaine(new ArrayList<Integer>(csp.getLstVariable().get(i - 1).getDomaine()));
 				i--;
 			}
 			else {
@@ -36,7 +36,7 @@ public class Solver {
 					//Dans ce cas on a une solution, il faut la save
 					//Puis enlevé la valeur dans la solution en cours
 					//pour continuer le parcours
-					allSolutions.add(s);
+					allSolutions.add(new Solution(s));
 					s.setValueToVariable(i, -1);;
 				}
 				else {
