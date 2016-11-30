@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Solution implements Cloneable{
+public class Solution {
 	Map<Integer, CoupleValueDomain> solution = new HashMap<Integer, CoupleValueDomain>();
 	CSP csp;
 	
@@ -18,7 +18,13 @@ public class Solution implements Cloneable{
 	
 	public Solution(Solution s) {
 		this.csp = s.getCsp();
-		this.solution = new HashMap<Integer, CoupleValueDomain>(s.getSolution());
+		Map<Integer, CoupleValueDomain> tmpSolution = new HashMap<Integer, CoupleValueDomain>(s.getSolution());
+		Map<Integer, CoupleValueDomain> newSolution = new HashMap<Integer, CoupleValueDomain>();
+		
+		for (Integer mapKey : tmpSolution.keySet()) {
+			newSolution.put(mapKey, new CoupleValueDomain(tmpSolution.get(mapKey)));
+		}
+		this.solution = newSolution;
 	}
 	
 	public CSP getCsp() {
@@ -73,17 +79,6 @@ public class Solution implements Cloneable{
 
 	public Map<Integer, CoupleValueDomain> getSolution() {
 		return solution;
-	}
-	
-	public Object clone() {
-		Object o = null;
-		try {
-			o = super.clone();
-		} catch (CloneNotSupportedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		return o;
 	}
 
 	public void setSolution(Map<Integer, CoupleValueDomain> solution) {

@@ -37,7 +37,7 @@ public class Solver {
 					//Puis enlevé la valeur dans la solution en cours
 					//pour continuer le parcours
 					allSolutions.add(new Solution(s));
-					s.setValueToVariable(i, -1);;
+					s.setValueToVariable(i, -1);
 				}
 				else {
 					i++;

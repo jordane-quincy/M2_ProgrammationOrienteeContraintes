@@ -7,6 +7,11 @@ public class CoupleValueDomain {
 	private int value;
 	private List<Integer> domaine = new ArrayList<Integer>();
 	
+	public CoupleValueDomain (CoupleValueDomain cvd) {
+		this.value = cvd.getValue();
+		this.domaine = new ArrayList<Integer>(cvd.getDomaine());
+	}
+	
 	public CoupleValueDomain(int value, List<Integer> domaine) {
 		this.value = value;
 		this.domaine = domaine;
