@@ -7,7 +7,7 @@ public class Backtracking {
 		int nbVariables = 6;
 		int tailleMaxDomaine = 5;
 		int densite = 40;
-		int durete = 10;
+		int durete = 50;
 		int connectivite = 2;
 		CSP csp = new CSP(nbVariables, tailleMaxDomaine, densite, durete, connectivite);
 		System.out.println("On essaye de résoudre le csp suivant :");

@@ -1,9 +1,11 @@
 package com.github;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class Solver {
-	public static Solution resolveByBacktracking (CSP csp) {
+	public static List<Solution> resolveByBacktracking (CSP csp) {
+		List<Solution> allSolutions = new ArrayList<Solution>();
 		Solution s = new Solution(csp);
 		//System.out.println(csp);
 		//procédure BT
@@ -24,17 +26,25 @@ public class Solver {
 				}				
 			}
 			if (!ok) {
+				//Si on n'a pas trouvé de valeur compatible avec la solution courante
+				//On reset le Domaine de la variable et on repasse à la variable précédente
+				solForVarI.setDomaine(csp.getLstVariable().get(i - 1).getDomaine());
 				i--;
 			}
 			else {
-				i++;
+				if (i == csp.getNbVariables()) {
+					//Dans ce cas on a une solution, il faut la save
+					//Puis enlevé la valeur dans la solution en cours
+					//pour continuer le parcours
+					allSolutions.add(s);
+					s.setValueToVariable(i, -1);;
+				}
+				else {
+					i++;
+				}
 			}
 		}
-		if (i == 0) {
-			//Il n'y a pas de solution
-			return null;
-		}
 		//finProcédure
-		return s;
+		return allSolutions;
 	}
 }
