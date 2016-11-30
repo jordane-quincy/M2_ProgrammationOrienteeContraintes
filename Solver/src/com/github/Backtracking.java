@@ -6,17 +6,35 @@ public class Backtracking {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-		int nbVariables = 6;
+		int nbVariables = 4;
 		int tailleMaxDomaine = 5;
-		int densite = 100;
-		int durete = 100;
-		int connectivite = 5;
+		int densite = 80;
+		int durete = 50;
+		int connectivite = 3;
 		CSP csp = new CSP(nbVariables, tailleMaxDomaine, densite, durete, connectivite);
 		System.out.println("On essaye de résoudre le csp suivant :");
 		System.out.println(csp);
-		List<Solution> allSolutions = Solver.resolveByBacktracking(csp);
-		for (int i = 0; i < allSolutions.size(); i++) {
-			System.out.println(allSolutions.get(i));
+		
+		List<Solution> allSolutionsByBT = Solver.resolveByBacktracking(csp);
+		if (allSolutionsByBT.size() == 0) {
+			System.out.println("Pas de solution pour ce csp");
+		}
+		else {
+			System.out.println("Solution par BT : ( "+ allSolutionsByBT.size() + " solutions)\n");
+		}
+		for (int i = 0; i < allSolutionsByBT.size(); i++) {
+			System.out.println(allSolutionsByBT.get(i));
+		}
+		
+		List<Solution> allSolutionsByBJ = Solver.resolveByBackJumping(csp);
+		if (allSolutionsByBJ.size() == 0) {
+			System.out.println("Pas de solution pour ce csp");
+		}
+		else {
+			System.out.println("Solution par BJ : (" + allSolutionsByBJ.size() + " solutions)\n");
+		}
+		for (int i = 0; i < allSolutionsByBJ.size(); i++) {
+			System.out.println(allSolutionsByBJ.get(i));
 		}
 		
 	}

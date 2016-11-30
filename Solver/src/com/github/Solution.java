@@ -18,9 +18,9 @@ public class Solution {
 	
 	public Solution(Solution s) {
 		this.csp = s.getCsp();
+		//Copie de s.getSolution()
 		Map<Integer, CoupleValueDomain> tmpSolution = new HashMap<Integer, CoupleValueDomain>(s.getSolution());
-		Map<Integer, CoupleValueDomain> newSolution = new HashMap<Integer, CoupleValueDomain>();
-		
+		Map<Integer, CoupleValueDomain> newSolution = new HashMap<Integer, CoupleValueDomain>();		
 		for (Integer mapKey : tmpSolution.keySet()) {
 			newSolution.put(mapKey, new CoupleValueDomain(tmpSolution.get(mapKey)));
 		}
