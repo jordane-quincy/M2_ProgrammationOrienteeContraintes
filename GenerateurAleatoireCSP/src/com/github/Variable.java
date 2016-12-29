@@ -10,6 +10,11 @@ public class Variable {
 	List<Integer> domaine = new ArrayList<Integer>();
 	int connectivite = 0;
 
+	public Variable(int numero, List<Integer> domaine) {
+		this.id = "X" + numero;
+		this.domaine = domaine;
+	}
+
 	public Variable(int numero, int tailleMaxDomaine) {
 		this.id = "X" + numero;
 
@@ -50,21 +55,21 @@ public class Variable {
 	public int getConnectivite() {
 		return connectivite;
 	}
-	
+
 	public String getId() {
 		return id;
 	}
 
 	@Override
 	public boolean equals(Object obj) {
-		Variable v = (Variable)obj;
+		Variable v = (Variable) obj;
 		if (v == null) {
 			return false;
 		}
 		return v.getId().equals(id);
 	}
-	
-	public int getIdInt(){
+
+	public int getIdInt() {
 		return Integer.valueOf(id.substring(1));
 	}
 

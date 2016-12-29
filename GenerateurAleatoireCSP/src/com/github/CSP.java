@@ -10,6 +10,77 @@ public class CSP {
 	List<Contrainte> lstContrainte = null;
 	int nbVariables;
 
+	public CSP(String typeDeCSP) {
+		switch (typeDeCSP) {
+		case "4Reines":
+			this.nbVariables = 4;
+
+			List<Integer> domaineDeChaqueReine = new ArrayList<Integer>();
+			for (int i = 1; i <= nbVariables; i++) {
+				domaineDeChaqueReine.add(i);
+			}
+
+			this.lstVariable = new ArrayList<Variable>();
+			for (int i = 1; i <= nbVariables; i++) {
+				lstVariable.add(new Variable(i, domaineDeChaqueReine));
+			}
+
+			List<CoupleValeur> lstCouple = new ArrayList<CoupleValeur>();
+			for (int i = 1; i <= nbVariables; i++) {
+				for (int j = i; j <= nbVariables; j++) {
+					lstCouple.add(new CoupleValeur(i, j));
+				}
+			}
+
+			this.lstContrainte = new ArrayList<Contrainte>();
+			for (int i = 1; i <= nbVariables; i++) {
+				for (int j = i + 1; j <= nbVariables; j++) {
+					Variable var1 = lstVariable.get(i - 1);
+					Variable var2 = lstVariable.get(j - 1);
+					Contrainte contrainte = new Contrainte(var1, var2, -1);
+
+					contrainte.setLstCouple(new ArrayList<CoupleValeur>(lstCouple));
+					lstContrainte.add(contrainte);
+				}
+			}
+
+			//
+			for (int i = 1; i <= nbVariables; i++) {
+				for (int j = i + 1; j <= nbVariables; j++) {
+					for (Integer d : lstVariable.get(i).getDomaine()) {
+						// Contrainte c = lstContrainte.get(i - 1);
+						// List<CoupleValeur> lstCoupleValeur =
+						// c.getLstCouple();
+						// for (int i1 = 0; i1 < lstCoupleValeur.size(); i1++) {
+						// CoupleValeur coupleValeur = lstCoupleValeur.get(i1);
+						// if (coupleValeur.getValeur1() ==
+						// coupleValeur.getValeur2()) {
+						// // lstContrainte.remove(c);
+						// c.getLstCouple().remove(coupleValeur);
+						// }
+						// }
+						// c.setLstCouple(lstCoupleValeur);
+
+						// c.removeCouple(d, d);
+
+						// int lstTmp = new ArrayList<>(c.getLstCouple());
+						// c.setLstCouple(c.getLstCouple().removeAll(c));
+
+						for (Contrainte c : lstContrainte) {
+							if (c.getVariable1().getIdInt() == i && c.getVariable2().getIdInt() == j) {
+								// c.removeCouple(d, d);
+								lstContrainte.remove(c);
+							}
+						}
+					}
+				}
+			}
+			break;
+		default:
+			throw new RuntimeException("Type de CSP inconnu : " + typeDeCSP);
+		}
+	}
+
 	public CSP(int nbVariables, int tailleMaxDomaine, int densite, int durete, int connectivite) {
 		this.nbVariables = nbVariables;
 
