@@ -12,8 +12,9 @@ public class MainResoudreCSP {
 		int densite = 80;
 		int durete = 50;
 		int connectivite = 3;
-		CSP csp = new CSP(nbVariables, tailleMaxDomaine, densite, durete, connectivite);
-		System.out.println("On essaye de résoudre le csp suivant :");
+		CSP csp = new CSP(4);// CSP(nbVariables, tailleMaxDomaine, densite,
+								// durete, connectivite);
+		System.out.println("On essaye de rï¿½soudre le csp suivant :");
 		System.out.println(csp);
 
 		Map<String, List<Solution>> map = new LinkedHashMap<String, List<Solution>>();
@@ -33,41 +34,6 @@ public class MainResoudreCSP {
 				System.out.println(solution);
 			}
 		}
-		// System.out.println("*********************");
-		//
-		// List<Solution> allSolutionsByBT = Solver.resolveByBacktracking(csp);
-		// if (allSolutionsByBT.size() == 0) {
-		// System.out.println("Pas de solution pour ce csp");
-		// } else {
-		// System.out.println("\nSolution par BT : ( " + allSolutionsByBT.size()
-		// + " solutions)\n");
-		// }
-		// for (int i = 0; i < allSolutionsByBT.size(); i++) {
-		// System.out.println(allSolutionsByBT.get(i));
-		// }
-		//
-		// List<Solution> allSolutionsByBJ = Solver.resolveByBackJumping(csp);
-		// if (allSolutionsByBJ.size() == 0) {
-		// System.out.println("Pas de solution pour ce csp");
-		// } else {
-		// System.out.println("\nSolution par BJ : (" + allSolutionsByBJ.size()
-		// + " solutions)\n");
-		// }
-		// for (int i = 0; i < allSolutionsByBJ.size(); i++) {
-		// System.out.println(allSolutionsByBJ.get(i));
-		// }
-		//
-		// List<Solution> allSolutionsByFC =
-		// Solver.resolveByForwardChecking(csp);
-		// if (allSolutionsByFC.size() == 0) {
-		// System.out.println("Pas de solution pour ce csp");
-		// } else {
-		// System.out.println("\nSolution par FC : (" + allSolutionsByFC.size()
-		// + " solutions)\n");
-		// }
-		// for (int i = 0; i < allSolutionsByFC.size(); i++) {
-		// System.out.println(allSolutionsByFC.get(i));
-		// }
 
 	}
 
