@@ -27,7 +27,8 @@ public class CSP {
 
 			List<CoupleValeur> lstCouple = new ArrayList<CoupleValeur>();
 			for (int i = 1; i <= nbVariables; i++) {
-				for (int j = i; j <= nbVariables; j++) {
+				for (int j = 1; j <= nbVariables; j++) {
+					//On prend tous les couples possibles
 					lstCouple.add(new CoupleValeur(i, j));
 				}
 			}
@@ -38,41 +39,21 @@ public class CSP {
 					Variable var1 = lstVariable.get(i - 1);
 					Variable var2 = lstVariable.get(j - 1);
 					Contrainte contrainte = new Contrainte(var1, var2, -1);
-
-					contrainte.setLstCouple(new ArrayList<CoupleValeur>(lstCouple));
-					lstContrainte.add(contrainte);
-				}
-			}
-
-			//
-			for (int i = 1; i <= nbVariables; i++) {
-				for (int j = i + 1; j <= nbVariables; j++) {
-					for (Integer d : lstVariable.get(i).getDomaine()) {
-						// Contrainte c = lstContrainte.get(i - 1);
-						// List<CoupleValeur> lstCoupleValeur =
-						// c.getLstCouple();
-						// for (int i1 = 0; i1 < lstCoupleValeur.size(); i1++) {
-						// CoupleValeur coupleValeur = lstCoupleValeur.get(i1);
-						// if (coupleValeur.getValeur1() ==
-						// coupleValeur.getValeur2()) {
-						// // lstContrainte.remove(c);
-						// c.getLstCouple().remove(coupleValeur);
-						// }
-						// }
-						// c.setLstCouple(lstCoupleValeur);
-
-						// c.removeCouple(d, d);
-
-						// int lstTmp = new ArrayList<>(c.getLstCouple());
-						// c.setLstCouple(c.getLstCouple().removeAll(c));
-
-						for (Contrainte c : lstContrainte) {
-							if (c.getVariable1().getIdInt() == i && c.getVariable2().getIdInt() == j) {
-								// c.removeCouple(d, d);
-								lstContrainte.remove(c);
+					List<CoupleValeur> lstCoupleTmp = new ArrayList<CoupleValeur>(lstCouple);
+					//Retirer mauvais couple en fonction de i et j
+					for (int d = 1; d <= this.nbVariables; d++) {
+						for (int k = lstCoupleTmp.size() - 1; k >= 0; k--) {
+							CoupleValeur tmpCV = lstCoupleTmp.get(k);
+							int diffIAndJ = j - i;
+							if (tmpCV.getValeur1() == tmpCV.getValeur2() ||
+									(tmpCV.getValeur2() + diffIAndJ <= this.nbVariables && tmpCV.getValeur1() == tmpCV.getValeur2() + diffIAndJ) ||
+									(tmpCV.getValeur2() - diffIAndJ >= 1 && tmpCV.getValeur1() == tmpCV.getValeur2() - diffIAndJ )) {
+								lstCoupleTmp.remove(k);
 							}
 						}
 					}
+					contrainte.setLstCouple(new ArrayList<CoupleValeur>(lstCoupleTmp));
+					lstContrainte.add(contrainte);
 				}
 			}
 			break;
