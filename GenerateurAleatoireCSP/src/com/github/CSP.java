@@ -10,56 +10,53 @@ public class CSP {
 	List<Contrainte> lstContrainte = null;
 	int nbVariables;
 
-	public CSP(String typeDeCSP) {
-		switch (typeDeCSP) {
-		case "4Reines":
-			this.nbVariables = 4;
+	public CSP(int nbDeReines) {
+		this.nbVariables = nbDeReines;
 
-			List<Integer> domaineDeChaqueReine = new ArrayList<Integer>();
-			for (int i = 1; i <= nbVariables; i++) {
-				domaineDeChaqueReine.add(i);
+		List<Integer> domaineDeChaqueReine = new ArrayList<Integer>();
+		for (int i = 1; i <= nbVariables; i++) {
+			domaineDeChaqueReine.add(i);
+		}
+
+		this.lstVariable = new ArrayList<Variable>();
+		for (int i = 1; i <= nbVariables; i++) {
+			lstVariable.add(new Variable(i, domaineDeChaqueReine));
+		}
+
+		List<CoupleValeur> lstCouple = new ArrayList<CoupleValeur>();
+		for (int i = 1; i <= nbVariables; i++) {
+			for (int j = 1; j <= nbVariables; j++) {
+				// On prend tous les couples possibles
+				lstCouple.add(new CoupleValeur(i, j));
 			}
+		}
 
-			this.lstVariable = new ArrayList<Variable>();
-			for (int i = 1; i <= nbVariables; i++) {
-				lstVariable.add(new Variable(i, domaineDeChaqueReine));
-			}
-
-			List<CoupleValeur> lstCouple = new ArrayList<CoupleValeur>();
-			for (int i = 1; i <= nbVariables; i++) {
-				for (int j = 1; j <= nbVariables; j++) {
-					//On prend tous les couples possibles
-					lstCouple.add(new CoupleValeur(i, j));
-				}
-			}
-
-			this.lstContrainte = new ArrayList<Contrainte>();
-			for (int i = 1; i <= nbVariables; i++) {
-				for (int j = i + 1; j <= nbVariables; j++) {
-					Variable var1 = lstVariable.get(i - 1);
-					Variable var2 = lstVariable.get(j - 1);
-					Contrainte contrainte = new Contrainte(var1, var2, -1);
-					List<CoupleValeur> lstCoupleTmp = new ArrayList<CoupleValeur>(lstCouple);
-					//Retirer mauvais couple en fonction de i et j
-					for (int d = 1; d <= this.nbVariables; d++) {
-						for (int k = lstCoupleTmp.size() - 1; k >= 0; k--) {
-							CoupleValeur tmpCV = lstCoupleTmp.get(k);
-							int diffIAndJ = j - i;
-							if (tmpCV.getValeur1() == tmpCV.getValeur2() ||
-									(tmpCV.getValeur2() + diffIAndJ <= this.nbVariables && tmpCV.getValeur1() == tmpCV.getValeur2() + diffIAndJ) ||
-									(tmpCV.getValeur2() - diffIAndJ >= 1 && tmpCV.getValeur1() == tmpCV.getValeur2() - diffIAndJ )) {
-								lstCoupleTmp.remove(k);
-							}
+		this.lstContrainte = new ArrayList<Contrainte>();
+		for (int i = 1; i <= nbVariables; i++) {
+			for (int j = i + 1; j <= nbVariables; j++) {
+				Variable var1 = lstVariable.get(i - 1);
+				Variable var2 = lstVariable.get(j - 1);
+				Contrainte contrainte = new Contrainte(var1, var2, -1);
+				List<CoupleValeur> lstCoupleTmp = new ArrayList<CoupleValeur>(lstCouple);
+				// Retirer mauvais couple en fonction de i et j
+				for (int d = 1; d <= this.nbVariables; d++) {
+					for (int k = lstCoupleTmp.size() - 1; k >= 0; k--) {
+						CoupleValeur tmpCV = lstCoupleTmp.get(k);
+						int diffIAndJ = j - i;
+						if (tmpCV.getValeur1() == tmpCV.getValeur2()
+								|| tmpCV.getValeur2() + diffIAndJ <= this.nbVariables
+										&& tmpCV.getValeur1() == tmpCV.getValeur2() + diffIAndJ
+								|| tmpCV.getValeur2() - diffIAndJ >= 1
+										&& tmpCV.getValeur1() == tmpCV.getValeur2() - diffIAndJ) {
+							lstCoupleTmp.remove(k);
 						}
 					}
-					contrainte.setLstCouple(new ArrayList<CoupleValeur>(lstCoupleTmp));
-					lstContrainte.add(contrainte);
 				}
+				contrainte.setLstCouple(new ArrayList<CoupleValeur>(lstCoupleTmp));
+				lstContrainte.add(contrainte);
 			}
-			break;
-		default:
-			throw new RuntimeException("Type de CSP inconnu : " + typeDeCSP);
 		}
+
 	}
 
 	public CSP(int nbVariables, int tailleMaxDomaine, int densite, int durete, int connectivite) {

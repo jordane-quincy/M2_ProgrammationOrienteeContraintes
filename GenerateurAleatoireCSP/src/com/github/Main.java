@@ -10,7 +10,7 @@ public class Main {
 		int connectivite = 2;
 		// CSP csp = new CSP(nbVariables, tailleMaxDomaine, densite, durete,
 		// connectivite);
-		CSP csp = new CSP("4Reines");
+		CSP csp = new CSP(4);
 		System.out.println(csp);
 	}
 
