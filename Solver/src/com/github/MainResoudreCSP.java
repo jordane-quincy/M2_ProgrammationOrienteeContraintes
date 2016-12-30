@@ -13,7 +13,7 @@ public class MainResoudreCSP {
 		int durete = 50;
 		int connectivite = 3;
 		CSP csp = new CSP(nbVariables, tailleMaxDomaine, densite, durete, connectivite);
-		System.out.println("On essaye de rï¿½soudre le csp suivant :");
+		System.out.println("On essaye de résoudre le csp suivant :");
 		System.out.println(csp);
 
 		Map<String, List<Solution>> map = new HashMap<String, List<Solution>>();
