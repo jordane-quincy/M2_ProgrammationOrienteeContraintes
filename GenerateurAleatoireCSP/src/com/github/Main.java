@@ -8,7 +8,9 @@ public class Main {
 		int densite = 40;
 		int durete = 50;
 		int connectivite = 2;
-		CSP csp = new CSP(nbVariables, tailleMaxDomaine, densite, durete, connectivite);
+		// CSP csp = new CSP(nbVariables, tailleMaxDomaine, densite, durete,
+		// connectivite);
+		CSP csp = new CSP("4Reines");
 		System.out.println(csp);
 	}
 

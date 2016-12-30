@@ -61,5 +61,36 @@ public class Contrainte {
 	public List<CoupleValeur> getLstCouple() {
 		return lstCouple;
 	}
-	
+
+	public void setLstCouple(List<CoupleValeur> lstCouple) {
+		this.lstCouple = lstCouple;
+	}
+	//
+	// public void removeCouple(int var1, int var2) {
+	// List<CoupleValeur> newListe = new ArrayList<CoupleValeur>();
+	//
+	//
+	// for (int i = 0; i < lstCouple.size(); i++) {
+	// CoupleValeur coupleValeur = lstCouple.get(i);
+	// if (coupleValeur.getValeur1() == var1 && coupleValeur.getValeur2() ==
+	// var2) {
+	// lstCouple.removeA(coupleValeur);
+	// }
+	// }
+	//
+	// lstCouple = newListe;
+	// }
+
+	public void removeCouple(int var1, int var2) {
+		List<CoupleValeur> tmpSolution = new ArrayList<CoupleValeur>(lstCouple);
+		List<CoupleValeur> newSolution = new ArrayList<CoupleValeur>();
+
+		for (CoupleValeur coupleValeur : tmpSolution) {
+			if (coupleValeur.getValeur1() != var1 && coupleValeur.getValeur2() != var2) {
+				newSolution.add(coupleValeur);
+			}
+		}
+		this.lstCouple = newSolution;
+	}
+
 }
