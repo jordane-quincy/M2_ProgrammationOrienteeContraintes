@@ -128,4 +128,98 @@ public class Solver {
 		return plusProcheParent;
 	}
 	
+	public static List<Solution> resolveByForwardChecking(CSP csp) {
+		//initialisation des solutions
+		List<Solution> allSolutions = new ArrayList<Solution>();
+		Solution s = new Solution(csp);
+		//Declaration liste des domaines qu'on doit garder pour revenir en arrière
+		Map<Integer, List<CoupleValueDomain>> savedDomaines = new HashMap<Integer, List<CoupleValueDomain>>();
+		
+		int i = 1;
+		while (i >= 1 && i <= csp.getNbVariables()) {
+			boolean ok = false;
+			int x;
+			CoupleValueDomain solForVarI = s.getSolution().get(i);
+			List<Integer> domaine = solForVarI.getDomaine();
+			while (!ok && domaine.size() > 0) {
+				x = domaine.get(0);
+				domaine.remove(0);
+				//save the domain for the future
+				savedDomaines = saveCurrentDomain(i, savedDomaines, s, csp);			
+				s.setValueToVariable(i, x);
+				boolean domaineVide = false;
+				for (int k = i + 1; k <= csp.getNbVariables(); k++) {
+					if (!domaineVide) {	
+						//On revise les domaines de définition de k
+						CoupleValueDomain solForVarK = s.getSolution().get(k);
+						List<Integer> domaineDeK = solForVarK.getDomaine();					
+						for (int h = domaineDeK.size() - 1; h >= 0; h--) {
+							int y = domaineDeK.get(h);
+							if (!s.authorizedValueForVariable(k, y)) {
+								domaineDeK.remove(h);
+							}
+						}
+						if (domaineDeK.size() == 0) {
+							domaineVide = true;
+						}
+					}
+				}
+				if (domaineVide) {
+					//on restaure les Dk
+					for (int k = i + 1; k <= csp.getNbVariables(); k++) {
+						CoupleValueDomain solForVarK = s.getSolution().get(k);
+						CoupleValueDomain previousSolForVarK = savedDomaines.get(i).get(k - 1);
+						solForVarK.setDomaine(new CoupleValueDomain(previousSolForVarK).getDomaine());
+					}
+				}
+				else {
+					ok = true;
+				}
+			}
+			if (!ok) {
+				//backtrack
+				//reset des Domaines si i > 1
+				if (i > 1) {
+					for (int k = 1; k <= csp.getNbVariables(); k++) {
+						CoupleValueDomain solForVarK = s.getSolution().get(k);
+						CoupleValueDomain previousSolForVarK = savedDomaines.get(i - 1).get(k - 1);
+						solForVarK.setDomaine(new CoupleValueDomain(previousSolForVarK).getDomaine());
+					}
+				}				
+				s.setValueToVariable(i, -1);
+				i--;
+			}
+			else {
+				if (i == csp.getNbVariables()) {
+					//Dans ce cas on a une solution, il faut la save
+					//Puis enlevé la valeur dans la solution en cours
+					//pour continuer le parcours
+					allSolutions.add(new Solution(s));
+					s.setValueToVariable(i, -1);
+				}
+				else {
+					//step forward
+					i++;
+				}
+			}
+		}
+		return allSolutions;		
+	}
+
+	private static Map<Integer, List<CoupleValueDomain>> saveCurrentDomain(int i,
+			Map<Integer, List<CoupleValueDomain>> savedDomaines, Solution s, CSP csp) {
+		
+		List<CoupleValueDomain> domaines = new ArrayList<CoupleValueDomain>();
+		for (int j = 1; j <= csp.getNbVariables(); j++) {
+			//On récupère tous les domaine actuels			
+			domaines.add(new CoupleValueDomain(s.getSolution().get(j)));
+			
+			
+		}
+		//On les ajoutes dans nos savedDomaines
+		savedDomaines.put(i, domaines);
+		
+		return savedDomaines;
+	}	
+	
 }
