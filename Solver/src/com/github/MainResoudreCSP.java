@@ -1,6 +1,6 @@
 package com.github;
 
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -16,7 +16,7 @@ public class MainResoudreCSP {
 		System.out.println("On essaye de r�soudre le csp suivant :");
 		System.out.println(csp);
 
-		Map<String, List<Solution>> map = new HashMap<String, List<Solution>>();
+		Map<String, List<Solution>> map = new LinkedHashMap<String, List<Solution>>();
 		map.put("Back Tracking", Solver.resolveByBacktracking(csp));
 		map.put("Back Jumping", Solver.resolveByBackJumping(csp));
 		map.put("Forward Checking", Solver.resolveByForwardChecking(csp));
