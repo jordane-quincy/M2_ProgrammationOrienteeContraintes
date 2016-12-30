@@ -2,7 +2,7 @@ package com.github;
 
 import java.util.List;
 
-public class Backtracking {
+public class MainResoudreCSP {
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
