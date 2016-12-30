@@ -14,7 +14,7 @@ public class MainResoudreCSP {
 		int connectivite = 3;
 		CSP csp = new CSP(4);// CSP(nbVariables, tailleMaxDomaine, densite,
 								// durete, connectivite);
-		System.out.println("On essaye de rï¿½soudre le csp suivant :");
+		System.out.println("On essaye de résoudre le csp suivant :");
 		System.out.println(csp);
 
 		Map<String, List<Solution>> map = new LinkedHashMap<String, List<Solution>>();
