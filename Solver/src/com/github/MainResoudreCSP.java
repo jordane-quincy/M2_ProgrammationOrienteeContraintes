@@ -26,7 +26,7 @@ public class MainResoudreCSP {
 			System.out.println(allSolutionsByBT.get(i));
 		}
 		
-		/*List<Solution> allSolutionsByBJ = Solver.resolveByBackJumping(csp);
+		List<Solution> allSolutionsByBJ = Solver.resolveByBackJumping(csp);
 		if (allSolutionsByBJ.size() == 0) {
 			System.out.println("Pas de solution pour ce csp");
 		}
@@ -35,7 +35,7 @@ public class MainResoudreCSP {
 		}
 		for (int i = 0; i < allSolutionsByBJ.size(); i++) {
 			System.out.println(allSolutionsByBJ.get(i));
-		}*/
+		}
 		
 		List<Solution> allSolutionsByFC = Solver.resolveByForwardChecking(csp);
 		if (allSolutionsByFC.size() == 0) {
@@ -46,8 +46,7 @@ public class MainResoudreCSP {
 		}
 		for (int i = 0; i < allSolutionsByFC.size(); i++) {
 			System.out.println(allSolutionsByFC.get(i));
-		}
-		
+		}		
 		
 	}
 

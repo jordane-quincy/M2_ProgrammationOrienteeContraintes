@@ -32,6 +32,7 @@ public class Solver {
 				//Si on n'a pas trouvé de valeur compatible avec la solution courante
 				//On reset le Domaine de la variable et on repasse à la variable précédente
 				solForVarI.setDomaine(new ArrayList<Integer>(csp.getLstVariable().get(i - 1).getDomaine()));
+				s.setValueToVariable(i, -1);
 				i--;
 			}
 			else {
@@ -87,6 +88,7 @@ public class Solver {
 			if (!ok) {
 				//On réalise le backjumping
 				solForVarI.setDomaine(new ArrayList<Integer>(csp.getLstVariable().get(i - 1).getDomaine()));
+				s.setValueToVariable(i, -1);
 				if (solutionWasFound){
 					solutionWasFound = false;
 					i--;
